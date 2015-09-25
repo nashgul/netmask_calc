@@ -6,7 +6,7 @@ import re
 def entrada_de_ip():
     entrada = raw_input("Introduce la dirección de red: ")
     matchIp = re.search( r'(([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3}))(\/){0,1}([0-9]{1,2}){0,1}', entrada )
-    if matchIp.group(1):
+    if matchIp:
         ip_principal = map(int, list(matchIp.group(2,3,4,5)))
         for x in ip_principal:
             if x > 255 or x < 0:
@@ -19,7 +19,10 @@ def entrada_de_ip():
                 entrada_de_ip()
         else:
             mascara = pedir_mascara()
-        return ip_principal, mascara
+    else:
+        print "Dirección ip inválida!"
+        entrada_de_ip()
+    return ip_principal, mascara
 
 def pedir_mascara():
     entrada_mascara = raw_input("Introduce la máscara de red: ")
@@ -29,7 +32,6 @@ def pedir_mascara():
         pedir_mascara()
     else:
         mascara = map(int, list(matchMask.group(2,3,4,5)))
-        #mascara = map(int, mascara)
         for x in mascara:
             if x > 255 or x < 0:
                 print "máscara incorrecta!!"
