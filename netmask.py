@@ -38,9 +38,9 @@ def pedir_mascara():
                 pedir_mascara()
     return mascara
 
-def convertir(ip_principal):
-    ip_principal_binario = []
-    for x in ip_principal:
+def convertir(ip_address):
+    ip_address_binario = []
+    for x in ip_address:
         temporal = ""
         for y in range(7,-1,-1):
             if x >= 2**y:
@@ -48,8 +48,8 @@ def convertir(ip_principal):
                 x = x - 2**y
             else:
                 temporal = temporal + "0"
-        ip_principal_binario.append( temporal )
-    return ip_principal_binario
+        ip_address_binario.append( temporal )
+    return ip_address_binario
 
 def convertir_mascara(mascara):
     if type(mascara) == int:
@@ -61,6 +61,8 @@ def convertir_mascara(mascara):
                     mascara -= 1
                 else:
                     mascara_binario[x] = mascara_binario[x] + "0"
+    elif type(mascara) == list:
+        mascara_binario = convertir(mascara)
     return mascara_binario
 
 ip_principal, mascara = entrada_de_ip()
