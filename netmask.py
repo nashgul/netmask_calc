@@ -61,7 +61,7 @@ def convertir_mascara(mascara):
                     mascara -= 1
                 else:
                     mascara_binario[x] = mascara_binario[x] + "0"
-    elif type(mascara) == list:
+    else:
         mascara_binario = convertir(mascara)
     return mascara_binario
 
