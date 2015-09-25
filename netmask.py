@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import re
+import re 
 
 def entrada_de_ip():
     ip_principal = ()
@@ -14,12 +14,12 @@ def entrada_de_ip():
             print "Dirección ip inválida!"
     for x in ip_principal:
         if x > 255 or x < 0:
-            print "Valor %i incorrecto!!", x
+            print "Valor %d incorrecto!!" % x
             entrada_de_ip()
     if matchIp.group(7):
         mascara = int(matchIp.group(7))
         if mascara > 32 or mascara < 0:
-            print "máscara CIDR: %i incorrecta", mascara
+            print "valor CIDR: %d incorrecta" % mascara
             entrada_de_ip()
     else:
         mascara = pedir_mascara()
@@ -35,7 +35,7 @@ def pedir_mascara():
     mascara = map(int, list(matchMask.group(2,3,4,5)))
     for x in mascara:
         if x > 255 or x < 0:
-            print "máscara incorrecta!!"
+            print "valor %d incorrecto!!" % x
             pedir_mascara()
     return mascara
 
@@ -68,6 +68,4 @@ def convertir_mascara(mascara):
 
 ip_principal, mascara = entrada_de_ip()
 ip_principal_binario = convertir(ip_principal)
-print ip_principal_binario
 mascara_binario = convertir_mascara(mascara)
-print mascara_binario
