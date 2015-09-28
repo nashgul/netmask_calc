@@ -67,32 +67,26 @@ def bits_de_red(mascara):
     return mascara_binario
 
 def subred_bin():
-# ip y máscara en binario
-# calcula el minimo y máximo valor de red en binario y decimal
-    a = ""
     ip_addresses_bin.append([""]*4)
     ip_addresses_bin.append([""]*4)
     for x in range(4):
         for y in range(8):
             if ip_addresses_bin[1][x][y] == "1":
-                valor = (ip_addresses_bin[2][x], ip_addresses_bin[0][x][y])
-                ip_addresses_bin[2][x] = a.join(valor) 
+                ip_addresses_bin[2][x] = ip_addresses_bin[2][x] + ip_addresses_bin[0][x][y] 
             else:
                 ip_addresses_bin[3][x] = ip_addresses_bin[2][x]
                 for z in range(0,8-y):
-                    valor_0 = (ip_addresses_bin[2][x], "0")
-                    ip_addresses_bin[2][x] = a.join(valor_0)
-                    valor_1 = (ip_addresses_bin[3][x], "1")
-                    ip_addresses_bin[3][x] = a.join(valor_1)
+                    ip_addresses_bin[2][x] = ip_addresses_bin[2][x] + "0"
+                    ip_addresses_bin[3][x] = ip_addresses_bin[3][x] + "1" 
                 break
             ip_addresses_bin[3][x] = ip_addresses_bin[2][x]
 
 ###Inicio del script
 ####################
 
-# 1: main ip, 2: mask, 3: subnet ip min, 4: subnet ip max
+# [0][0:7]: main ip decimal, [1][0:7]: mask decimal, [2][0:7]: ip min decimal, [3][0:7]: ip max decimal
 ip_addresses = []
-# 1: main ip, 2: mask, 3: subnet ip min, 4: subnet ip max
+# [0][0:7]: main ip, [1][1:7]: mask, [2][0:7]: ip min binario, [3][0:7]: ip max binario
 ip_addresses_bin = []
 CIDR = None
 
@@ -109,8 +103,11 @@ if not sys.argv[1:]:
         ip_addresses.append(convertir_a_decimal(ip_addresses_bin[1]))
 #le paso la ip principal y la máscara en binario
     subred_bin()
+    ip_addresses.append(convertir_a_decimal(ip_addresses_bin[2]))
+    ip_addresses.append(convertir_a_decimal(ip_addresses_bin[3]))
 
 print("")
 print("ip principal:\t\t{0:03d}.{1:03d}.{1:03d}.{1:03d}".format(ip_addresses[0][0],ip_addresses[0][1],ip_addresses[0][2],ip_addresses[0][3]))
 print("máscara de red: \t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[1][0],ip_addresses[1][1],ip_addresses[1][2],ip_addresses[1][3]))
-print("rt: ", ip_addresses_bin)
+print("ip inferior: \t\t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[2][0],ip_addresses[2][1],ip_addresses[2][2],ip_addresses[2][3]))
+print("ip superior: \t\t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[3][0],ip_addresses[3][1],ip_addresses[3][2],ip_addresses[3][3]))
