@@ -66,7 +66,7 @@ def bits_de_red(mascara):
         mascara_binario = convertir_a_binario(mascara)
     return mascara_binario
 
-def subred_bin(ip_address, mascara):
+def subred_bin():
 # ip y máscara en binario
 # calcula el minimo y máximo valor de red en binario y decimal
     a = ""
@@ -108,7 +108,7 @@ if not sys.argv[1:]:
         ip_addresses_bin.append(bits_de_red(CIDR))
         ip_addresses.append(convertir_a_decimal(ip_addresses_bin[1]))
 #le paso la ip principal y la máscara en binario
-    subred_bin(ip_addresses_bin[0], ip_addresses_bin[1])
+    subred_bin()
 
 print("")
 print("ip principal:\t\t{0:03d}.{1:03d}.{1:03d}.{1:03d}".format(ip_addresses[0][0],ip_addresses[0][1],ip_addresses[0][2],ip_addresses[0][3]))
