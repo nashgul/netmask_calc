@@ -112,5 +112,5 @@ if not sys.argv[1:]:
 
 print("")
 print("ip principal:\t\t{0:03d}.{1:03d}.{1:03d}.{1:03d}".format(ip_addresses[0][0],ip_addresses[0][1],ip_addresses[0][2],ip_addresses[0][3]))
-print("máscara de red: \t{0:3d}.{1:3d}.{2:3d}.{3:3d}".format(ip_addresses[1][0],ip_addresses[1][1],ip_addresses[1][2],ip_addresses[1][3]))
+print("máscara de red: \t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[1][0],ip_addresses[1][1],ip_addresses[1][2],ip_addresses[1][3]))
 print("rt: ", ip_addresses_bin)
