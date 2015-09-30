@@ -35,10 +35,19 @@ def pedir_mascara():
             print("La máscara introducida no es válida")    
     mascara = map(int, list(matchMask.group(2,3,4,5)))
     for x in mascara:
-        if x > 255 or x < 0:
-            print("valor %s incorrecto!!" % x)
-            pedir_mascara()
+            es_buena = comprobar_mascara(x)
+            if es_buena == 1:
+                print("valor %s incorrecto!!" % x)
+                pedir_mascara()
     return mascara
+
+def comprobar_mascara(numero):
+    acum = 0
+    for x in range(7,-1,-1):
+        acum = acum  + 2**x
+        if numero == acum or numero == 0:
+            return 0
+    return 1
 
 def convertir_a_binario(ip_address):
     ip_address_binario = []
@@ -93,6 +102,8 @@ CIDR = None
 if not sys.argv[1:]:
     print("Introduce la ip principal en notación CIDR, o sólo la ip principal,")
     print("y luego se pedirá la máscara en forma notación decimal puntuada")
+    print("")
+    print("")
     ip_addresses.append(entrada_ip())
     ip_addresses_bin.append(convertir_a_binario(ip_addresses[0]))
     if not CIDR:
@@ -106,8 +117,19 @@ if not sys.argv[1:]:
     ip_addresses.append(convertir_a_decimal(ip_addresses_bin[2]))
     ip_addresses.append(convertir_a_decimal(ip_addresses_bin[3]))
 
+ip_principal_dec = "{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[0][0],ip_addresses[0][1],ip_addresses[0][2],ip_addresses[0][3])
+mascara_dec = "{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[1][0],ip_addresses[1][1],ip_addresses[1][2],ip_addresses[1][3])
+ip_inferior_dec = "{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[2][0],ip_addresses[2][1],ip_addresses[2][2],ip_addresses[2][3])
+ip_superior_dec = "{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[3][0],ip_addresses[3][1],ip_addresses[3][2],ip_addresses[3][3])
+ip_principal_bin = ip_addresses_bin[0][0] + '.' + ip_addresses_bin[0][1] + '.' + ip_addresses_bin[0][2] + '.' + ip_addresses_bin[0][3]
+mascara_bin = ip_addresses_bin[1][0] + '.' + ip_addresses_bin[1][1] + '.' + ip_addresses_bin[1][2] + '.' + ip_addresses_bin[1][3]
+ip_inferior_bin = ip_addresses_bin[2][0] + '.' + ip_addresses_bin[2][1] + '.' + ip_addresses_bin[2][2] + '.' + ip_addresses_bin[2][3]
+ip_superior_bin = ip_addresses_bin[3][0] + '.' + ip_addresses_bin[3][1] + '.' + ip_addresses_bin[3][2] + '.' + ip_addresses_bin[3][3]
 print("")
-print("ip principal:\t\t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[0][0],ip_addresses[0][1],ip_addresses[0][2],ip_addresses[0][3]))
-print("máscara de red: \t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[1][0],ip_addresses[1][1],ip_addresses[1][2],ip_addresses[1][3]))
-print("ip inferior: \t\t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[2][0],ip_addresses[2][1],ip_addresses[2][2],ip_addresses[2][3]))
-print("ip superior: \t\t{0:03d}.{1:03d}.{2:03d}.{3:03d}".format(ip_addresses[3][0],ip_addresses[3][1],ip_addresses[3][2],ip_addresses[3][3]))
+print("")
+print "ip principal    :    %s   %s " % (ip_principal_dec,ip_principal_bin)
+print "máscaras de red :    %s   %s " % (mascara_dec,mascara_bin)
+print "ip inferior     :    %s   %s " % (ip_inferior_dec,ip_inferior_bin)
+print "ip superior     :    %s   %s " % (ip_superior_dec,ip_superior_bin)
+
+
