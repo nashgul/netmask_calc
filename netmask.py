@@ -32,11 +32,12 @@ def pedir_mascara():
         entrada_mascara = raw_input("Introduce la máscara de red: ")
         matchMask = re.search( r'\b(([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3}))\b', entrada_mascara )
         if not matchMask:
-            print("La máscara introducida no es válida")    
+            print("La máscara introducida no es válida")
+    mascara = ""
     mascara = map(int, list(matchMask.group(2,3,4,5)))
     for x in mascara:
             es_buena = comprobar_mascara(x)
-            if es_buena == 1:
+            if not es_buena:
                 print("valor %s incorrecto!!" % x)
                 pedir_mascara()
     return mascara
@@ -46,8 +47,8 @@ def comprobar_mascara(numero):
     for x in range(7,-1,-1):
         acum = acum  + 2**x
         if numero == acum or numero == 0:
-            return 0
-    return 1
+            return True
+    return False
 
 def convertir_a_binario(ip_address):
     ip_address_binario = []
@@ -131,5 +132,5 @@ print "ip principal    :    %s   %s " % (ip_principal_dec,ip_principal_bin)
 print "máscaras de red :    %s   %s " % (mascara_dec,mascara_bin)
 print "ip inferior     :    %s   %s " % (ip_inferior_dec,ip_inferior_bin)
 print "ip superior     :    %s   %s " % (ip_superior_dec,ip_superior_bin)
-
-
+print ""
+print ""
