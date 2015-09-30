@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-
+#
+# ver 0.1
 import re,sys 
 
 def entrada_ip():
